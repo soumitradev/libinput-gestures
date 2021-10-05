@@ -381,7 +381,7 @@ class GESTURE:
 
         # If any extended gestures configured then set flag to enable
         # their discrimination
-        if self.extended_text in motion:
+        if self.extended_text and self.extended_text in motion:
             self.has_extended = True
 
         key = (motion, fingers) if fingers else motion
@@ -496,6 +496,19 @@ class PINCH(GESTURE):
             self.action('clockwise' if angle >= 0.0 else 'anticlockwise')
         elif ratio != 0.0:
             self.action('in' if ratio <= 0.0 else 'out')
+
+@add_gesture_handler
+class HOLD(GESTURE):
+    'Class to handle this type of gesture'
+    SUPPORTED_MOTIONS = ('on',)
+    extended_text = None
+
+    def update(self, coords):
+        return True
+
+    def end(self):
+        'Action this gesture at the end of a motion sequence'
+        self.action('on')
 
 # Table of configuration commands
 conf_commands = OrderedDict()

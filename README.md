@@ -102,6 +102,7 @@ and options described in that file. The available gestures are:
 |`pinch out`           |GNOME open/close overview |
 |`pinch clockwise`     ||
 |`pinch anticlockwise` ||
+|`hold on` |(trigger only, only [available since libinput 1.19](#hold-gestures)) |
 
 NOTE: If you don't use "natural" scrolling direction for your touchpad
 then you may want to swap the default left/right and up/down
@@ -298,6 +299,21 @@ give a total of 8 swipe gestures each at 45 degrees separation. It works
 better than you may expect, at least after some practice. It means you
 can completely manage browser tabs from your touchpad.
 
+### HOLD GESTURES
+
+Libinput version 1.19.0 added [HOLD
+gestures](https://wayland.freedesktop.org/libinput/doc/latest/gestures.html#hold-gestures)
+to augment the standard SWIPE and PINCH gestures. They are actioned with
+1 or more fingers and are simply set ON as a trigger. They are not as
+versatile as the other gestures but they are a distinct new gesture so
+`libinput-gestures` does interpret them and map them to commands you can
+configure in your `libinput-gestures.conf`, e.g:
+
+    gesture hold on 4 xdotool key control+t
+
+The above gesture will open a new tab in your browser if you rest 4
+fingers statically on the window.
+
 ### AUTOMATIC STOP/RESTART ON D-BUS EVENTS SUCH AS SUSPEND
 
 There are some situations where you may want to automatically stop,
@@ -354,9 +370,8 @@ configuration you are using, regardless of what the issue is about**.
    events but no `GESTURE_*` events then unfortunately your touchpad
    and/or libinput combination can report simple finger movements but
    does not report multi-finger gestures so `libinput-gestures` will not
-   work. Also note that discrimination of `SWIPE` and `PINCH` gestures
-   is done completely within libinput, before they get to
-   `libinput-gestures`.
+   work. Also note that discrimination of gestures is done completely
+   within libinput, before they get to `libinput-gestures`.
 
 7. Search the web for Linux kernel and/or libinput issues relating to
    your specific touchpad device and/or laptop/pc. Update your BIOS if
