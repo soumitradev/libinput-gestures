@@ -102,7 +102,7 @@ and options described in that file. The available gestures are:
 |`pinch out`           |GNOME open/close overview |
 |`pinch clockwise`     ||
 |`pinch anticlockwise` ||
-|`hold on` |(trigger only, only [available since libinput 1.19](#hold-gestures)) |
+|`hold on` ([available since libinput 1.19](#hold-gestures)) |Open new web browser tab |
 
 NOTE: If you don't use "natural" scrolling direction for your touchpad
 then you may want to swap the default left/right and up/down
