@@ -16,7 +16,7 @@ import threading
 from time import monotonic
 from collections import OrderedDict
 from pathlib import Path
-from distutils.version import LooseVersion as Version
+from packaging import version
 
 dbus_imported = True
 try:
@@ -691,7 +691,7 @@ def main():
     if not libvers:
         sys.exit('libinput helper tools do not seem to be installed?')
 
-    if Version(libvers) >= Version('1.8'):
+    if version.parse(libvers) >= version.parse('1.8'):
         cmd_debug_events = 'libinput debug-events'
         cmd_list_devices = 'libinput list-devices'
     else:
