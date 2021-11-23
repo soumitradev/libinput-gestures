@@ -800,7 +800,11 @@ def main():
 
         # Split received message line into relevant fields
         dev, gevent, time, other = line.strip().split(maxsplit=3)
-        gesture, event = gevent[8:].split('_')
+        try:
+            gesture, event = gevent[8:].split('_')
+        except Exception:
+            continue
+
         fingers, *argslist = other.split(maxsplit=1)
         params = argslist[0] if argslist else ''
 
