@@ -1,4 +1,25 @@
 ### LIBINPUT-GESTURES
+---
+
+**Fork notes:** I made this as a backup fork in case MidnightNerd's fork gets deleted. 
+This fork allows for running commands multiple times in the same gesture:
+
+Config syntax: `gesture swipe direction numFingers threshold command`
+
+Example:
+
+```
+# Swipe with 4 fingers up or down to increase/decrease Volume
+timeout 5
+gesture swipe up 4 40 xdotool key XF86AudioRaiseVolume
+gesture swipe down 4 40 xdotool key XF86AudioLowerVolume
+```
+
+This allows for smoother volume control like in Windows. 
+I would love to expand this to switching windows while holding down 
+the gesture, but I haven't figured that out yet.
+
+---
 
 [Libinput-gestures][REPO] is a utility which reads [libinput
 gestures](https://wayland.freedesktop.org/libinput/doc/latest/gestures.html)
