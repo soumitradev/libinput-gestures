@@ -50,8 +50,8 @@ https://github.com/bulletmark/libinput-gestures.
 
 ### INSTALLATION
 
-You need python 3.5 or later, python2 is not supported. You also need
-libinput release 1.0 or later.
+You need _python_ 3.5 or later, _python2_ is not supported. You also need
+_libinput_ release 1.0 or later, and the Python _packaging_ library.
 
 You **must be a member of the _input_ group** to have permission
 to read the touchpad device:
