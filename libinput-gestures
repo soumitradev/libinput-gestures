@@ -16,7 +16,6 @@ import threading
 from time import monotonic
 from collections import OrderedDict
 from pathlib import Path
-from packaging import version
 
 dbus_imported = True
 try:
@@ -89,8 +88,11 @@ def get_libinput_vers():
     # Try to use newer libinput interface then fall back to old
     # (depreciated) interface.
     res = run(('libinput', '--version'), check=False)
-    return res.strip() if res else \
-            run(('libinput-list-devices', '--version'), check=False)
+    if res:
+        return res.strip(), True
+
+    res = run(('libinput-list-devices', '--version'), check=False)
+    return res and res.strip(), False
 
 def get_devices_list(cmd_list_devices, device_list):
     'Get list of devices and their attributes (as a dict) from libinput'
@@ -717,11 +719,11 @@ def main():
         args.verbose = True
 
     # Libinput changed the way in which it's utilities are called
-    libvers = get_libinput_vers()
+    libvers, has_subcmd = get_libinput_vers()
     if not libvers:
         sys.exit('libinput helper tools do not seem to be installed?')
 
-    if version.parse(libvers) >= version.parse('1.8'):
+    if has_subcmd:
         cmd_debug_events = 'libinput debug-events'
         cmd_list_devices = 'libinput list-devices'
     else:
