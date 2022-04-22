@@ -154,36 +154,12 @@ if needed. If you have multiple touchpads you can also specify
 
 ### STARTING AND STOPPING
 
-You must choose between starting the application as a [systemd user
-service](https://wiki.archlinux.org/index.php/Systemd/User), or as a
-[desktop
-application](https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html)
-(with an XDG compliant DE such as GNOME and KDE). The systemd user
-service option for `libinput-gestures` was added in Feb 2021 and
-provides more robust management and better logging than the desktop so
-is the preferred choice if your system is recent and your DM/DE supports
-it. Note that some environments [do not correctly start the systemd
-user
-service](https://github.com/bulletmark/libinput-gestures/issues/305) so
-you will have to choose the desktop option in that case.
+To [re-]start the app immediately and also to enable it to start
+automatically at login, just type the following:
 
-Choose one of the two following options:
+    libinput-gestures-setup stop desktop autostart start
 
-1. To set up the application as a [systemd user
-   service](https://wiki.archlinux.org/index.php/Systemd/User):
-
-````
-libinput-gestures-setup service
-````
-
-2. Or instead, to set up the application using your
-   [DE](https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html):
-
-````
-libinput-gestures-setup desktop
-````
-
-After choosing one of the above, you can use then run the following commands:
+The following commands are available:
 
 Enable the app to start automatically in the background when you
 log in with:
@@ -211,17 +187,28 @@ Check the status of the app with:
     libinput-gestures-setup status
 
 You can specify multiple user commands to `libinput-gestures-setup` to
-action in sequence. E.g. to shutdown and change from a desktop
-installation to running service installation type:
+action in sequence.
+
+Note that on some uncommon systems then `libinput-gestures-setup start`
+may fail to start the application returning you a message _Don't know
+how to invoke libinput-gestures.desktop_. If you get this error message,
+install the dex package, preferably from your system packages
+repository, and try again.
+
+### SYSTEMD USER SERVICE
+
+By default, `libinput-gestures` is started with your DE as a desktop
+application. There is also an option to start as a [systemd user
+service](https://wiki.archlinux.org/title/Systemd/User). However, on
+many systems this is unreliable (on system restart, the application will
+get started but occasionally will be unable to receive commands). If you
+really want to try it, type:
 
     libinput-gestures-setup stop service autostart start
 
-Note if you are starting using the desktop option and you are using some
-uncommon systems then `libinput-gestures-setup start` may fail to start
-the application returning you a message _Don't know how to invoke
-libinput-gestures.desktop_. If you get this error message, install the
-dex package, preferably from your system packages repository, and try
-again.
+Switch back to the default desktop option with the command:
+
+    libinput-gestures-setup stop desktop autostart start
 
 ### UPGRADE
 
@@ -312,7 +299,7 @@ configure in your `libinput-gestures.conf`, e.g:
     gesture hold on 4 xdotool key control+t
 
 The above gesture will open a new tab in your browser if you rest 4
-fingers statically on the window.
+fingers statically on the touchpad.
 
 ### AUTOMATIC STOP/RESTART ON D-BUS EVENTS SUCH AS SUSPEND
 
